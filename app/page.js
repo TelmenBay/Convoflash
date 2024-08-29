@@ -1,5 +1,4 @@
 import React from 'react'
-import getStripe from '@/utils/get-stripe'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { Box, AppBar, Button, Container, Toolbar, Typography, Grid} from '@mui/material'
 import Head from 'next/head'
@@ -22,7 +21,7 @@ const handleSubmit = async () => {
   }
 }
 
-export default function home() {
+export default function Home() {
 
 
   return(
@@ -52,7 +51,7 @@ export default function home() {
           Welcome to Convoflash
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
-          The easiest way to create flashcards from your text.
+          Have Conversations Anytime Anywhere
         </Typography>
         <Button variant="contained" color="primary" sx={{mt: 2, mr: 2}} href="/generate">
           Get Started
@@ -62,15 +61,71 @@ export default function home() {
         </Button>
       </Box>
       <Box sx={{my: 6}}>
-        <Typography variant="h4" component="h2" gutterBottom>Features</Typography>
+        <Typography variant="h4" gutterBottom>Features</Typography>
         <Grid container spacing={4}>
-          {/* Feature items */}
+          <Grid item xs={12} md={4}>
+            <Typography variant='h6' gutterBottom>Easy Text Input</Typography>
+            <Typography>
+              {' '}
+              Simply input your "Target Language" and "Source Language". Our software will do the rest.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Typography variant='h6' gutterBottom>Smart Flashcards</Typography>
+            <Typography>
+              {' '}
+              Our AI Intelligently breaks down your text into concise flashcards, perfect for studying.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Typography variant='h6' gutterBottom>No Langauge Barrier</Typography>
+            <Typography>
+              {' '}
+              Accessible to anyone around the world from any device. Talk to anyone with Convoflash.
+            </Typography>
+          </Grid>
         </Grid>
       </Box>
       <Box sx={{my: 6, textAlign: 'center'}}>
-        <Typography variant="h4" component="h2" gutterBottom>Pricing</Typography>
-        <Grid container spacing={4} justifyContent="center">
-          {}
+        <Typography variant="h4" gutterBottom>Pricing</Typography>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
+            <Box sx={{
+              p:3,
+              border: '1px solid',
+              borderColor: 'grey.300',
+              borderRadius: 2,
+            }}>
+              <Typography variant='h5' gutterBottom>Free</Typography>
+              <Typography variant='h6' gutterBottom>No Payment</Typography>
+              <Typography>
+                {' '}
+                Access to basic flashcard features and limited storage.
+              </Typography>
+              <Button variant='contained' color='primary' sx={{mt: 2}} href='/generate'>
+                Choose Free
+              </Button>
+            </Box> 
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box sx={{
+              p:3,
+              border: '1px solid',
+              borderColor: 'grey.300',
+              borderRadius: 2,
+            }}>
+              <Typography variant='h5' gutterBottom>Pro</Typography>
+              <Typography variant='h6' gutterBottom>$4.99 / One Time Payment</Typography>
+              <Typography>
+                {' '}
+                Unlimited flashcards and storage, with priority support.
+              </Typography>
+              <Button variant='contained' color='primary' sx={{mt: 2}}>
+                Choose Pro
+              </Button>
+            </Box> 
+          </Grid>
+          
         </Grid>
       </Box>
 
