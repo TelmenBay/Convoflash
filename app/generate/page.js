@@ -18,10 +18,10 @@ import {
   Paper,
   CardActionArea,
 } from '@mui/material';
-// import { db } from '@/firebase'; // Make sure to adjust this path as needed
+import db from '../../firebase';
 import { useUser } from '@clerk/nextjs'; // Make sure to adjust this path as needed
 import { useRouter } from 'next/navigation';
-// import { doc, collection, setDoc, getDoc, writeBatch } from 'firebase/firestore';
+import { doc, collection, setDoc, getDoc, writeBatch } from 'firebase/firestore';
 
 
 export default function Generate() {
@@ -56,39 +56,44 @@ export default function Generate() {
     setOpen(false);
   }
   const saveFlashcards = async () => {
+    if (!isLoaded || !isSignedIn) {
+      console.error('User is not signed in or user data is not loaded');
+      return; // Prevent function from continuing if user is not signed in
+    }
+  
     if (!name) {
       alert('Please enter a name for your flashcard set.');
       return;
     }
+  
     const batch = writeBatch(db);
-    const userDocRef = doc(collection(db, 'users'), user.id);
+    const userDocRef = doc(collection(db, 'users'), user.id); // This line requires user.id to be defined
     const docSnap = await getDoc(userDocRef);
-
-    if (userDocSnap.exists()) {
-        const collections = docSnap.data().flashcards || []
-        if (collections.find((f) => f.name === name)) {
-            alert('Flashcard collection with the same name already exists.')
-            return
-        } else {
-            collections.push({name})
-            batch.set(userDocRef, {flashcardSets: collections }, {merge: true});
-        }
-        
+  
+    if (docSnap.exists()) {
+      const collections = docSnap.data().flashcards || [];
+      if (collections.find((f) => f.name === name)) {
+        alert('Flashcard collection with the same name already exists.');
+        return;
       } else {
-        batch.set(userDocRef, {flashcardSets: [{name}]});
+        collections.push({ name });
+        batch.set(userDocRef, { flashcardSets: collections }, { merge: true });
       }
-
-      const colRef = collection(userDocRef, name)
-      flashcards.forEach((flashcard) => {
-        const cardDocRef = doc(colRef)
-        batch.set(cardDocRef, flashcard)
-      })
-
-      await batch.commit()
-      handleClose()
-      router.push('/flashcards')
-
+    } else {
+      batch.set(userDocRef, { flashcardSets: [{ name }] });
     }
+  
+    const colRef = collection(userDocRef, name);
+    flashcards.forEach((flashcard) => {
+      const cardDocRef = doc(colRef);
+      batch.set(cardDocRef, flashcard);
+    });
+  
+    await batch.commit();
+    handleClose();
+    router.push('/flashcards');
+  };
+  
 
     return (
         <Container maxWidth="md">

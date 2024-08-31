@@ -1,19 +1,18 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-const formatAmountForStripe = (amount, currency) => {
+const formatAmountForStripe = (amount) => {
     return Math.round(amount * 100)
    }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2022-11-15',
-})
+
 
 export async function POST(req) {
   try {
     // We'll implement the checkout session creation here
     const params = {
-        mode: 'subscription',
+        submit_type: 'subscription',
         payment_method_types: ['card'],
         line_items: [
           {
@@ -22,9 +21,9 @@ export async function POST(req) {
               product_data: {
                 name: 'Pro subscription',
               },
-              unit_amount: formatAmountForStripe(4.99, 'usd'), // $1.00
+              unit_amount: formatAmountForStripe(1.99), // $1.00
               recurring: {
-                interval: 'month',
+                interval: 'one-time',
                 interval_count: 1,
               },
             },

@@ -2,6 +2,7 @@ import React from 'react'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { Box, AppBar, Button, Container, Toolbar, Typography, Grid} from '@mui/material'
 import Head from 'next/head'
+import getStripe from '../utils/get-stripe'
 
 
 const handleSubmit = async () => {
@@ -56,33 +57,54 @@ export default function Home() {
         <Button variant="contained" color="primary" sx={{mt: 2, mr: 2}} href="/generate">
           Get Started
         </Button>
-        <Button variant="outlined" color="primary" sx={{mt: 2}}>
+        <Button variant="outlined" color="primary" sx={{mt: 2}} href="https://github.com/TelmenBay/Convoflash">
           Learn More
         </Button>
       </Box>
       <Box sx={{my: 6}}>
-        <Typography variant="h4" gutterBottom>Features</Typography>
+        <Typography variant="h4" gutterBottom sx={{ textAlign: 'center' }} >Features</Typography>
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <Typography variant='h6' gutterBottom>Easy Text Input</Typography>
-            <Typography>
+            <Box sx={{
+              p:3,
+              border: '1px solid',
+              borderColor: 'grey.300',
+              borderRadius: 2,
+            }}>
+            <Typography variant='h6' gutterBottom sx={{ textAlign: 'center' }}>Easy Text Input</Typography>
+            <Typography sx={{ textAlign: 'center' }}>
               {' '}
               Simply input your "Target Language" and "Source Language". Our software will do the rest.
             </Typography>
+            </Box>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Typography variant='h6' gutterBottom>Smart Flashcards</Typography>
-            <Typography>
+            <Box sx={{
+              p:3,
+              border: '1px solid',
+              borderColor: 'grey.300',
+              borderRadius: 2,
+            }}>
+            <Typography variant='h6' gutterBottom sx={{ textAlign: 'center' }}>Smart Flashcards</Typography>
+            <Typography sx={{ textAlign: 'center' }}>
               {' '}
               Our AI Intelligently breaks down your text into concise flashcards, perfect for studying.
             </Typography>
+            </Box>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Typography variant='h6' gutterBottom>No Langauge Barrier</Typography>
-            <Typography>
+            <Box sx={{
+              p:3,
+              border: '1px solid',
+              borderColor: 'grey.300',
+              borderRadius: 2,
+            }}>
+            <Typography variant='h6' gutterBottom sx={{ textAlign: 'center' }}>No Langauge Barrier</Typography>
+            <Typography sx={{ textAlign: 'center' }}>
               {' '}
               Accessible to anyone around the world from any device. Talk to anyone with Convoflash.
             </Typography>
+            </Box>
           </Grid>
         </Grid>
       </Box>
@@ -115,7 +137,7 @@ export default function Home() {
               borderRadius: 2,
             }}>
               <Typography variant='h5' gutterBottom>Pro</Typography>
-              <Typography variant='h6' gutterBottom>$4.99 / One Time Payment</Typography>
+              <Typography variant='h6' gutterBottom>$1.99 / One Time Payment</Typography>
               <Typography>
                 {' '}
                 Unlimited flashcards and storage, with priority support.
