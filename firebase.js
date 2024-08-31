@@ -2,7 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 // Optional: Import only analytics when in the browser.
-import { getAnalytics } from 'firebase/analytics'; 
+// import { getAnalytics } from 'firebase/analytics'; 
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,10 +19,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Check for `window` to ensure analytics is only used client-side
-let analytics;
-if (typeof window !== 'undefined') {
-  analytics = getAnalytics(app);
-}
+// let analytics;
+// if (typeof window !== 'undefined') {
+//   analytics = getAnalytics(app);
+// }
 
 const db = getFirestore(app);
 
