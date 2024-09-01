@@ -1,6 +1,21 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+ 
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <head>
+        <title>Next.js</title>
+      </head>
+      <body>
+        {children}
+        <SpeedInsights />
+      </body>
+    </html>
+  );
+}
 
 
 const inter = Inter({ subsets: ["latin"] });
