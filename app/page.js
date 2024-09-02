@@ -29,100 +29,32 @@ export default function Home() {
     }
   };
 
-  return React.createElement(
-    Container,
-    { maxWidth: '100vw' },
-    React.createElement(
-      Head,
-      null,
-      React.createElement('title', null, 'Convoflash'),
-      React.createElement('meta', {
-        name: 'description',
-        content: 'Create flashcard from your text',
-      })
-    ),
-    React.createElement(
-      AppBar,
-      { position: 'static' },
-      React.createElement(
-        Toolbar,
-        null,
-        React.createElement(Image, {
-          src: '/brand.png',
-          alt: 'Convoflash Logo',
-          width: 160,
-          height: 40,
-        }),
-        React.createElement('div', { style: { flexGrow: 1 } }), // This will push the elements to the right
-        React.createElement(
-          SignedOut,
-          null,
-          React.createElement(
-            Button,
-            {
-              variant: 'outlined',
-              color: 'inherit',
-              href: 'https://github.com/TelmenBay/Convoflash',
-              sx: { mr: 2 },
-            },
-            'Learn More'
-          ),
-          React.createElement(
-            Button,
-            {
-              variant: 'outlined',
-              color: 'inherit',
-              href: '/sign-in',
-              sx: { mr: 2 },
-            },
-            'Login'
-          ),
-          React.createElement(
-            Button,
-            { variant: 'outlined', color: 'inherit', href: '/sign-up' },
-            'Sign Up'
-          )
-        ),
-        React.createElement(
-          SignedIn,
-          null,
-          React.createElement(
-            Button,
-            {
-              variant: 'outlined',
-              color: 'primary',
-              sx: { mt: 2 },
-              href: 'https://github.com/TelmenBay/Convoflash',
-            },
-            'Learn More'
-          ),
-          React.createElement(UserButton, null)
-        )
-      )
-    ),
-    React.createElement(
-      Box,
-      { sx: { textAlign: 'center', my: 4 } },
-      React.createElement(
-        Typography,
-        { variant: 'h2', component: 'h1', gutterBottom: true },
-        'Welcome to Convoflash'
-      ),
-      React.createElement(
-        Typography,
-        { variant: 'h5', component: 'h2', gutterBottom: true },
-        'Have Conversations Anytime Anywhere'
-      ),
-      React.createElement(
-        Button,
-        {
-          variant: 'contained',
-          color: 'primary',
-          sx: { mt: 2, mr: 2 },
-          href: '/generate',
-        },
-        'Get Started'
-      )
-    )
+  return (
+    <Container maxWidth="100vw" sx={{ p: 0, minHeight: '100vh', backgroundImage: 'url(/bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <Head>
+        <title>Convoflash</title>
+        <meta name="description" content="Create flashcard from your text" />
+      </Head>
+      <AppBar position="static" sx={{ borderRadius: '20px', backgroundColor: 'white', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
+        <Toolbar>
+          <Image src="/brand.png" alt="Convoflash Logo" href="/app" width={160} height={40} />
+          <div style={{ flexGrow: 1 }} /> {/* Push elements to the right */}
+          <SignedOut>
+            <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', mr: 2, '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="https://github.com/TelmenBay/Convoflash">Learn More</Button>
+            <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', mr: 2, '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="/sign-in">Login</Button>
+            <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="/sign-up">Sign Up</Button>
+          </SignedOut>
+          <SignedIn>
+            <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', mr: 2, '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="https://github.com/TelmenBay/Convoflash">Learn More</Button>
+            <UserButton />
+          </SignedIn>
+        </Toolbar>
+      </AppBar>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', minHeight: 'calc(100vh - 64px)', textAlign: 'center', my: 4 }}>
+        <Typography color='white' fontFamily="Courier New, sans-serif" fontWeight="bold" variant="h2" component="h1" gutterBottom>Welcome to Convoflash</Typography>
+        <Typography color='white' fontFamily="Courier New, sans-serif" variant="h5" component="h2" gutterBottom>Have Conversations Anytime Anywhere</Typography>
+        <Button variant="contained" color="primary" sx={{ mt: 2, mr: 2, backgroundColor: 'gold', color: 'black', borderRadius: '20px', '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="/generate">Get Started</Button>
+      </Box>
+    </Container>
   );
 }
