@@ -1,11 +1,12 @@
 'use client';
 
-import { useUser } from '@clerk/nextjs';
+import { useUser, SignedIn, SignedOut, UserButton  } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
-import { Grid, Container, Card, CardActionArea, CardContent, Typography } from '@mui/material';
+import { Grid, Container, Card, CardActionArea, CardContent, Typography, AppBar, Toolbar, Button } from '@mui/material';
 import db from '../../firebase';
+import Image from 'next/image';
 
 export default function Flashcards() {
     const { isLoaded, isSignedIn, user } = useUser();
@@ -55,8 +56,25 @@ export default function Flashcards() {
         router.push(`/flashcard?id=${id}`);
     }
 
+    const goToHomePage = () => {
+        router.push('/'); // Navigate to the homepage
+    };
+
     return (
-        <Container maxWidth='md'>
+        <Container maxWidth="100vw" sx={{ p: 0, minHeight: '100vh', backgroundImage: 'url(/bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <AppBar position="static" sx={{ borderRadius: '20px', backgroundColor: 'white', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
+                <Toolbar>
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    <Image src="/brand.png" alt="Convoflash Logo" onClick={goToHomePage} width={160} height={40} />
+
+                    </Typography>
+                    
+                    <SignedIn>
+                      <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', mr: 2, '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="/generate">Generate</Button>
+                      <UserButton />
+                    </SignedIn>
+                </Toolbar>
+            </AppBar>   
             <Grid container spacing={3} sx={{ mt: 4 }}>
                 {flashcards.map((flashcard, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>

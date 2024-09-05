@@ -17,9 +17,13 @@ import {
   DialogActions,
   Paper,
   CardActionArea,
+  AppBar,
+  Toolbar,
 } from '@mui/material';
+import Image from 'next/image';
+
 import db from '../../firebase';
-import { useUser } from '@clerk/nextjs';
+import { SignedIn, SignedOut,UserButton, useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { doc, collection, setDoc, getDoc, writeBatch } from 'firebase/firestore';
 
@@ -31,6 +35,10 @@ export default function Generate() {
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  const goToHomePage = () => {
+    router.push('/'); // Navigate to the homepage
+  };
 
   const handleSubmit = async () => {
     try {
@@ -99,10 +107,27 @@ export default function Generate() {
   };
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ my: 4, mb: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography variant="h4">Generate Flashcards</Typography>
-        <Paper sx={{ p: 4, width: '100%' }}>
+    <Container maxWidth="100vw" sx={{ p: 0, minHeight: '100vh', backgroundImage: 'url(/bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <AppBar position="static" sx={{ borderRadius: '20px', backgroundColor: 'white', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
+                <Toolbar>
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    <Image src="/brand.png" alt="Convoflash Logo" onClick={goToHomePage} width={160} height={40} />
+
+                    </Typography>
+                    <SignedOut>
+                      <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', mr: 2, '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="https://github.com/TelmenBay/Convoflash">Learn More</Button>
+                      <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', mr: 2, '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="/sign-in">Login</Button>
+                      <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="/sign-up">Sign Up</Button>
+                    </SignedOut>
+                    <SignedIn>
+                      <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', mr: 2, '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="/flashcards">Collection</Button>
+                      <UserButton />
+                    </SignedIn>
+                </Toolbar>
+            </AppBar>   
+      <Box maxWidth="100vw" sx={{ my: 4, mb: 6, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Typography color='white' fontFamily="Courier New, sans-serif" variant="h4">Generate Flashcards</Typography>
+        <Paper sx={{ p: 4, width: '100%'}}>
           <TextField
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -114,8 +139,7 @@ export default function Generate() {
             sx={{ mb: 2 }}
           />
           <Button
-            variant="contained"
-            color="primary"
+            variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', '&:hover': { backgroundColor: 'darkgoldenrod' } }}
             onClick={handleSubmit}
             fullWidth
           >
@@ -127,7 +151,7 @@ export default function Generate() {
       {flashcards.length > 0 && (
         <>
           <Box sx={{ mt: 4 }}>
-            <Typography variant="h5" component="h2" gutterBottom>
+            <Typography color='white' fontFamily="Courier New, sans-serif" variant="h5" component="h2" gutterBottom align='center'>
               Generated Flashcards
             </Typography>
             <Grid container spacing={3}>
@@ -181,7 +205,7 @@ export default function Generate() {
             </Grid>
 
             <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-              <Button variant="contained" color="secondary" onClick={handleOpen}>
+              <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', '&:hover': { backgroundColor: 'darkgoldenrod' } }} onClick={handleOpen}>
                 Save Flashcards
               </Button>
             </Box>

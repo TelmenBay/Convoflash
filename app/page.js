@@ -45,7 +45,7 @@ export default function Home() {
             <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="/sign-up">Sign Up</Button>
           </SignedOut>
           <SignedIn>
-            <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', mr: 2, '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="https://github.com/TelmenBay/Convoflash">Learn More</Button>
+            <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', mr: 2, '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="/flashcards">Collection</Button>
             <UserButton />
           </SignedIn>
         </Toolbar>

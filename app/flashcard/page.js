@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser } from '@clerk/nextjs'; 
+import { useUser, SignedIn, SignedOut, UserButton  } from '@clerk/nextjs'; 
 import { doc, collection, getDocs } from 'firebase/firestore';
 import db from '../../firebase';
-import { Grid, Container, Card, CardActionArea, CardContent, Typography, Box } from '@mui/material';
-import { useSearchParams } from 'next/navigation';
+import { Grid,Box, Container, Card, CardActionArea, CardContent, Typography, AppBar, Toolbar, Button } from '@mui/material';
+import { useSearchParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
+
 
 export default function Flashcard() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -14,6 +16,11 @@ export default function Flashcard() {
   
   const searchParams = useSearchParams();
   const search = searchParams.get('id');
+  const router = useRouter();
+
+  const goToHomePage = () => {
+    router.push('/'); // Navigate to the homepage
+  };
   
   useEffect(() => {
     async function getFlashcard() {
@@ -48,7 +55,20 @@ export default function Flashcard() {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="100vw" sx={{ p: 0, minHeight: '100vh', backgroundImage: 'url(/bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <AppBar position="static" sx={{ borderRadius: '20px', backgroundColor: 'white', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
+                <Toolbar>
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    <Image src="/brand.png" alt="Convoflash Logo" onClick={goToHomePage} width={160} height={40} />
+
+                    </Typography>
+                    
+                    <SignedIn>
+                      <Button variant="contained" sx={{ backgroundColor: 'gold', color: 'black', borderRadius: '20px', mr: 2, '&:hover': { backgroundColor: 'darkgoldenrod' } }} href="/flashcards">Collection</Button>
+                      <UserButton />
+                    </SignedIn>
+                </Toolbar>
+            </AppBar>
       <Grid container spacing={3} sx={{ mt: 4 }}>
         {flashcards.map((flashcard) => (
           <Grid item xs={12} sm={6} md={4} key={flashcard.id}>
